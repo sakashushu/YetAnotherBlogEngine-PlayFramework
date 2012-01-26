@@ -19,10 +19,10 @@ public class BasicTest extends UnitTest {
 	@Test
 	public void createAndRetrieveUser() {
 		// Create a new user and save it
-		new User("bob@gmail.com", "secret", "Bob").save();
+		new YabeUser("bob@gmail.com", "secret", "Bob").save();
 		
 		// Retrieve the user with e-mail address bob@gmail.com
-		User bob = User.find("byEmail", "bob@gmail.com").first();
+		YabeUser bob = YabeUser.find("byEmail", "bob@gmail.com").first();
 		
 		// Test
 		assertNotNull(bob);
@@ -31,18 +31,18 @@ public class BasicTest extends UnitTest {
 	@Test
 	public void tryConnectAsUser() {
 		// Create a new user and save it
-		new User("bob@gmail.com", "secret", "Bob").save();
+		new YabeUser("bob@gmail.com", "secret", "Bob").save();
 		
 		// Test
-		assertNotNull(User.connect("bob@gmail.com", "secret"));
-		assertNull(User.connect("bob@gmail.com", "badpassword"));
-		assertNull(User.connect("tom@gmail.com", "secret"));
+		assertNotNull(YabeUser.connect("bob@gmail.com", "secret"));
+		assertNull(YabeUser.connect("bob@gmail.com", "badpassword"));
+		assertNull(YabeUser.connect("tom@gmail.com", "secret"));
 	}
 	
 	@Test
 	public void createPost() {
 		// Create a new user and save it
-		User bob = new User("bob@gmail.com", "secret", "Bob").save();
+		YabeUser bob = new YabeUser("bob@gmail.com", "secret", "Bob").save();
 
 		// Create a new post
 		new Post(bob, "My first post", "Hello world").save();
@@ -66,7 +66,7 @@ public class BasicTest extends UnitTest {
 	@Test
 	public void postComments() {
 		// Create a new user and save it
-		User bob = new User("bob@gmail.com", "secret", "Bob").save();
+		YabeUser bob = new YabeUser("bob@gmail.com", "secret", "Bob").save();
 		
 		// Create a new post
 		Post bobPost = new Post(bob, "My first post", "Hello worle").save();
@@ -97,7 +97,7 @@ public class BasicTest extends UnitTest {
 	@Test
 	public void useTheCommentsRelation() {
 		// Create a new user and save it
-		User bob = new User("bob@gmail.com", "secret", "Bob").save();
+		YabeUser bob = new YabeUser("bob@gmail.com", "secret", "Bob").save();
 		
 		// Create a new post
 		Post bobPost = new Post(bob, "My first post", "Hello world").save();
@@ -107,7 +107,7 @@ public class BasicTest extends UnitTest {
 		bobPost.addComment("Tom", "I knew that !");
 		
 		// Count things
-		assertEquals(1, User.count());
+		assertEquals(1, YabeUser.count());
 		assertEquals(1, Post.count());
 		assertEquals(2, Comment.count());
 		
@@ -123,7 +123,7 @@ public class BasicTest extends UnitTest {
 		bobPost.delete();
 		
 		// Check that all comments have been deleted
-		assertEquals(1, User.count());
+		assertEquals(1, YabeUser.count());
 		assertEquals(0, Post.count());
 		assertEquals(0, Comment.count());
 	}
@@ -133,15 +133,15 @@ public class BasicTest extends UnitTest {
 		Fixtures.loadModels("data.yml");
 		
 		// Count things
-		assertEquals(2, User.count());
+		assertEquals(2, YabeUser.count());
 		assertEquals(3, Post.count());
 		assertEquals(3, Comment.count());
 		
 		// Try to connect as users
-		assertNotNull(User.connect("bob@gmail.com", "secret"));
-		assertNotNull(User.connect("jeff@gmail.com", "secret"));
-		assertNull(User.connect("jeff@gmail.com", "badpassword"));
-		assertNull(User.connect("tom@gmail.com", "secret"));
+		assertNotNull(YabeUser.connect("bob@gmail.com", "secret"));
+		assertNotNull(YabeUser.connect("jeff@gmail.com", "secret"));
+		assertNull(YabeUser.connect("jeff@gmail.com", "badpassword"));
+		assertNull(YabeUser.connect("tom@gmail.com", "secret"));
 		
 		// Find all of Bob's posts
 		List<Post> bobPosts = Post.find("author.email", "bob@gmail.com").fetch();

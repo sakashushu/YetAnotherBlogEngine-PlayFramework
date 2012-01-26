@@ -28,12 +28,12 @@ public class Post extends Model {
 	public String content;
 	
 	@ManyToOne
-	public User author;
+	public YabeUser author;
 	
 	@OneToMany(mappedBy="post", cascade=CascadeType.ALL)
 	public List<Comment> comments;
 	
-	public Post(User author, String title, String content) {
+	public Post(YabeUser author, String title, String content) {
 		this.comments = new ArrayList<Comment>();
 		this.author = author;
 		this.title = title;
