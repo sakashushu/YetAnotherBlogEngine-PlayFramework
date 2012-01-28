@@ -11,11 +11,11 @@ public class BasicTest extends UnitTest {
 		Fixtures.deleteAll();
 	}
 	
-//    @Test
-//    public void aVeryImportantThingToTest() {
-//        assertEquals(2, 1 + 1);
-//    }
-
+	// @Test
+	// public void aVeryImportantThingToTest() {
+	//     assertEquals(2, 1 + 1);
+	// }
+	
 	@Test
 	public void createAndRetrieveUser() {
 		// Create a new user and save it
@@ -43,7 +43,7 @@ public class BasicTest extends UnitTest {
 	public void createPost() {
 		// Create a new user and save it
 		YabeUser bob = new YabeUser("bob@gmail.com", "secret", "Bob").save();
-
+		
 		// Create a new post
 		new Post(bob, "My first post", "Hello world").save();
 		
@@ -163,16 +163,5 @@ public class BasicTest extends UnitTest {
 		frontPost.addComment("Jim", "Hello guys");
 		assertEquals(3, frontPost.comments.size());
 		assertEquals(4, Comment.count());
-	}
-	
-	@Test
-	public void tryConnectAsUser() {
-		// Create a new user and save it
-		new User("bob@gmail.com", "secret", "Bob").save();
-		
-		// Test
-		assertNotNull(User.connect("bob@gmail.com", "secret"));
-		assertNull(User.connect("bob@gmail.com", "badpassword"));
-		assertNull(User.connect("tom@gmail.com", "secret"));
 	}
 }
