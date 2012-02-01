@@ -3,6 +3,7 @@ package controllers;
 import play.*;
 import play.cache.Cache;
 import play.data.validation.Required;
+import play.data.validation.Validation;
 import play.libs.Codec;
 import play.libs.Images;
 import play.mvc.*;
@@ -33,13 +34,22 @@ public class Application extends Controller {
     	render(post, randamID);
     }
     
-    public static void postComment(Long postId, @Required String author, @Required String content) {
+    public static void postComment(
+    		Long postId, 
+    		@Required(message="Auther is required") String author, 
+    		@Required(message="A message is required") String content,
+    		@Required(message="Please type the code") String code,
+    		String randamID) {
     	Post post = Post.findById(postId);
+    	validation.equals(
+    			code, Cache.get(randamID)
+    			).message("Invalid code. Please type it again");
     	if (validation.hasErrors()) {
-    		render("Application/show.html", post);
+    		render("Application/show.html", post, randamID);
     	}
     	post.addComment(author, content);
     	flash.success("Thanks for posting %s", author);
+    	Cache.delete(randamID);
     	show(postId);
     }
     
