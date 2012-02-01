@@ -9,6 +9,8 @@ GET     /                                       Application.index
 POST	/posts/{postId}/comments				Application.postComment
 GET     /posts/{id}								Application.show
 
+GET     /captha 								Application.captcha
+
 
 # Ignore favicon requests
 GET     /favicon.ico                            404
