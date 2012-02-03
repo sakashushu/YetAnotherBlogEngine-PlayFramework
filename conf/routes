@@ -7,10 +7,11 @@ GET     /                                       Application.index
 
 
 POST	/posts/{postId}/comments				Application.postComment
-GET     /posts/{id}								Application.show
+GET     /posts/{<[0-9]+>id}						Application.show
 
 GET     /captha 								Application.captcha
 
+GET		/posts/{tag}							Application.listTagged
 
 # Ignore favicon requests
 GET     /favicon.ico                            404
