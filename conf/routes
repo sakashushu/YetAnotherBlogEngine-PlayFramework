@@ -12,6 +12,9 @@ GET		/admin/?								Admin.index
 # Import Secure rutes
 *		/										module:secure
 
+GET		/admin/new								Admin.form
+POST	/admin/new								Admin.save
+
 POST	/posts/{postId}/comments				Application.postComment
 GET     /posts/{<[0-9]+>id}						Application.show
 
