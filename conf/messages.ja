@@ -1,0 +1,20 @@
+views.main.tools.login = ログインして何か書いてください
+
+post = 投稿
+Post = 投稿
+posts = 投稿 
+Posts = 投稿
+comment = コメント
+Comment = コメント 
+comments = コメント 
+Comments = コメント 
+yabeuser = ユーザー 
+YabeUser = ユーザー
+yabeusers = ユーザー 
+YabeUsers = ユーザー 
+tag = タグ
+Tag = タグ
+tags = タグ
+Tags = タグ
+
+views.Application.listTagged.title = 「%s」でタグ付けた投稿

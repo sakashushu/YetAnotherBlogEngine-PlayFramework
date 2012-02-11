@@ -1,0 +1,3 @@
+views.main.tools.login = Log in to write something
+
+views.Application.listTagged.title = Posts tagged with %s
