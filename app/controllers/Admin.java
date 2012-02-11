@@ -3,6 +3,7 @@ package controllers;
 import models.Post;
 import models.Tag;
 import models.YabeUser;
+import play.data.validation.Required;
 import play.mvc.Before;
 import play.mvc.Controller;
 import play.mvc.With;
@@ -26,14 +27,32 @@ public class Admin extends Controller {
 		render(posts);
 	}
 	
-	public static void form() {
+	public static void form(Long id) {
+		if(id != null) {
+			Post post = Post.findById(id);
+			render(post);
+		}
 		render();
 	}
 	
-	public static void save(String title, String content, String tags) {
-		// Create post
-		YabeUser author = YabeUser.find("byEmail", Security.connected()).first();
-		Post post = new Post(author, title, content);
+	public static void save(
+			Long id,
+			@Required(message="Title is required") String title,
+			@Required(message="Content is required") String content,
+			String tags) {
+		Post post;
+		if(id == null) {
+			// Create post
+			YabeUser author = YabeUser.find("byEmail", Security.connected()).first();
+			post = new Post(author, title, content);
+		} else {
+			// Retrieve post
+			post = Post.findById(id);
+			// Edit
+			post.title = title;
+			post.content = content;
+			post.tags.clear();
+		}
 		// Set tags list
 		for(String tag : tags.split("\\s+")) {
 			if(tag.trim().length() > 0) {
