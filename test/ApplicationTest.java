@@ -1,5 +1,5 @@
-import org.junit.*;
 import play.test.*;
+import org.junit.*;
 import play.mvc.*;
 import play.mvc.Http.*;
 import models.*;
@@ -14,4 +14,10 @@ public class ApplicationTest extends FunctionalTest {
         assertCharset(play.Play.defaultWebEncoding, response);
     }
     
+    @Test
+    public void testAdminSecurity() {
+	    Response response = GET("/admin");
+	    assertStatus(302, response);
+	    assertHeaderEquals("Location", "/login", response);
+	}
 }
